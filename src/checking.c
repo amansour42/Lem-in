@@ -18,13 +18,11 @@ int     check_start_end(t_env *e, char *line)
         RNBR += 1;
         return (1);
     }
-    if (RNBR == 1)
-    {
-        fill_room(e, line);
-        RNBR += 1;
-    }
-    if (RNBR == 2 && !ft_strcmp(line, "##end"))
+    if (!ft_strcmp(line, "##end"))
          return (0);
+    fill_room(e, line);
+    RNBR += 1;
+
     return (1);
 }
 
@@ -57,6 +55,13 @@ void    check_tubes(t_env *e, char *line)
 
     while (1)
     {
+        if (line[0] == '#')
+        {
+            free(line);
+            if (get_next_line(0, &line))
+                break ;
+            continue ;
+        }
         s = ft_strsplit(line , '-');
         free(line);
         if (length(s) != 2)
