@@ -14,6 +14,7 @@ static void	add_room(t_env *e, int x, int y, char *str)
 		tmp->next = NULL;
 		tmp->start = (RNBR == 1) ? 1 : 0;
         tmp->end = (e->end) ? 0 : 1;
+        tmp->tube = NULL;
         if (!R)
 			R = tmp;
 		else
@@ -27,7 +28,7 @@ static void	add_room(t_env *e, int x, int y, char *str)
 	return ;
 }
 
-static  int length(char **str)
+int         length(char **str)
 {
     int i;
 
@@ -37,7 +38,7 @@ static  int length(char **str)
     return (i);
 }
 
-static void    clean_split(char **s)
+void        clean_split(char **s)
 {
     int    nbr;
 
@@ -63,13 +64,16 @@ void        fill_room(t_env *e, char *str)
     char    **s;
     int     x;
     int     y;
-
+    
+    y = 0;
+    x = 0;
     s = ft_strsplit(str, ' ');
     if (length(s) != 3)
         treat_error(e, s);
-    if ((x = ft_atoi(s[1]) == -1 && ft_strcmp(s[1], "-1")) ||
-            ((y = ft_atoi(s[1]) == -1 && ft_strcmp(s[2], "-1"))))
-        treat_error(e, s);
+    if ((x = ft_atoi(s[1])) == -1 && ft_strcmp(s[1], "-1"))
+            treat_error(e, s);
+    if ((y = ft_atoi(s[2])) == -1 && ft_strcmp(s[2], "-1"))
+            treat_error(e, s);
     add_room(e, x, y, s[0]);
     clean_split(s);
 }

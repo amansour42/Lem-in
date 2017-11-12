@@ -15,14 +15,22 @@
 # include "../libft/libft.h"
 # include <stdlib.h>
 # include <stdio.h>
-# define A          e->a_nbr
-# define R          e->r
-# define RNBR       e->r_nbr
-# define ANTNBR     "Invalid ANTS' NUMBER!\n"
-# define INVALIDMAP "INVALID MAP\n"
-# define NOSTART    "NO COMMAND START\n"
-# define NOEND      "NO COMMAND END\n"
-# define WRONGROOM  "WRONG ROMM'S FORMAT\n"
+# define A              e->a_nbr
+# define R              e->r
+# define RNBR           e->r_nbr
+# define ANTNBR         "Invalid ANTS' NUMBER!\n"
+# define INVALIDMAP     "INVALID MAP\n"
+# define NOSTART        "NO COMMAND START\n"
+# define NOEND          "NO COMMAND END\n"
+# define WRONGROOM      "WRONG ROMM'S FORMAT\n"
+# define INVALIDTUBE    "INVALID TUBE\n"    
+# define NOTUBES        "NOTUBES\n"
+
+typedef struct      s_tube
+{
+    char            *name;
+    struct s_tube   *next;
+}                   t_tube;
 
 typedef struct	    s_room
 {
@@ -30,7 +38,7 @@ typedef struct	    s_room
     int				x;
     int				y;
     struct s_room	*next;
-    struct s_room   *liaison;
+    t_tube          *tube;
     int             start;
     int             end;
 }			        t_room;
@@ -48,8 +56,12 @@ int                 main(void);
  * checking
  */
 int                 check_nbr_ants(t_env *e, char *line);
-int                 check_map(t_env *e, char *line);
-void                check_tubes(t_env *e);
+int                 check_start_end(t_env *e, char *line);
+void                check_map(t_env *e, char *line);
+void                check_tubes(t_env *e, char *str);
+void                add_tube(t_tube **tube, char *str);
+void                clean_split(char **str);
+int                 length(char **str);
 /*
  * error
  */
@@ -63,4 +75,8 @@ void                delete_room(t_room **r);
  * map
  */
 void                init_map(t_env *env);
+/*
+ * extra
+ */
+void                print_ants(t_env *e);
 #endif

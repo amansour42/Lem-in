@@ -3,24 +3,29 @@
 int main(void)
 {
     t_env   e;
-    int     error;
     char    *line;
     
     init_map(&e);
-    if (get_next_line(0, &line))
-        check_nbr_ants(&e, line);
-    else
-        ft_error(INVALIDMAP);
+    (get_next_line(0, &line)) ? check_nbr_ants(&e, line) : ft_error(INVALIDMAP);
     free(line);
-    while ((get_next_line(0, &line)) && (e.end = check_map(&e, line)))
+    while ((get_next_line(0, &line)) && (e.end = check_start_end(&e, line)))
         free(line);
     if (e.end)
     {
         delete_room(&(e.r));
         ft_error(NOEND);
     }
-    fill_room(&e, line);
-    free(line);
-    check_tubes(&e);
+    while (get_next_line(0, &line) && !(belong(line, '-')))
+    {
+        fill_room(&e, line);
+        free(line);
+    }
+    if (!line)
+    {
+        delete_room(&(e.r));
+        ft_error(NOTUBES);
+    }
+    check_tubes(&e, line);
+    print_ants(&e);
     return (0);
 }
