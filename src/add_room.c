@@ -9,13 +9,13 @@ static void	add_room(t_env *e, int x, int y, char *str)
 	if ((tmp = (t_room*)malloc(sizeof(t_room))))
 	{
 		tmp->x = x;
-        tmp->y = y;
-        tmp->name = ft_strdup(str);
+		tmp->y = y;
+		tmp->name = ft_strdup(str);
 		tmp->next = NULL;
 		tmp->start = (RNBR == 1) ? 1 : 0;
-        tmp->end = (e->end) ? 0 : 1;
-        tmp->tube = NULL;
-        if (!R)
+		tmp->end = (e->end) ? 0 : 1;
+		tmp->tube = NULL;
+		if (!R)
 			R = tmp;
 		else
 		{
@@ -28,52 +28,64 @@ static void	add_room(t_env *e, int x, int y, char *str)
 	return ;
 }
 
-int         length(char **str)
+int			length(char **str)
 {
-    int i;
+	int i;
 
-    i = 0;
-    while (str[i])
-        ++i;
-    return (i);
+	i = 0;
+	while (str[i])
+	{
+		printf("S = %s\n", str[i]);
+		++i;
+	}
+	return (i);
 }
 
-void        clean_split(char **s)
+void		clean_split(char **s)
 {
-    int    nbr;
+	int		nbr;
 
-    nbr = length(s);
-    while (--nbr >= 0)
-    {
-        free(*(s + nbr));
-        *(s + nbr) = NULL;
-    }
-    return ;
-    free(s);
+	nbr = length(s);
+	while (--nbr >= 0)
+	{
+		free(*(s + nbr));
+		*(s + nbr) = NULL;
+	}
+	return ;
+	free(s);
 }
 
 static void treat_error(t_env *e, char **s)
 {
-    delete_room(&R);
-    clean_split(s);
-    ft_error(WRONGROOM);
+	delete_room(&R);
+	clean_split(s);
+	ft_error(WRONGROOM);
 }
 
-void        fill_room(t_env *e, char *str)
+void		fill_room(t_env *e, char *str)
 {
-    char    **s;
-    int     x;
-    int     y;
-    
-    y = 0;
-    x = 0;
-    s = ft_strsplit(str, ' ');
-    if (length(s) != 3)
-        treat_error(e, s);
-    if ((x = ft_atoi(s[1])) == -1 && ft_strcmp(s[1], "-1"))
-            treat_error(e, s);
-    if ((y = ft_atoi(s[2])) == -1 && ft_strcmp(s[2], "-1"))
-            treat_error(e, s);
-    add_room(e, x, y, s[0]);
-    clean_split(s);
+	char	**s;
+	int		x;
+	int		y;
+
+	y = 0;
+	x = 0;
+	s = ft_strsplit(str, ' ');
+	if (length(s) != 3)
+	{
+		printf("LEMGTH !+ 3\n");
+		treat_error(e, s);
+	}
+	if ((x = ft_atoi(s[1])) == -1 && ft_strcmp(s[1], "-1"))
+	{
+		printf("ERROR X\n");
+		treat_error(e, s);
+	}
+	if ((y = ft_atoi(s[2])) == -1 && ft_strcmp(s[2], "-1"))
+	{
+		printf("EROROR Y\n");
+		treat_error(e, s);
+	}
+	add_room(e, x, y, s[0]);
+	clean_split(s);
 }
