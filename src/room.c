@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   room.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amansour <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/11/26 14:46:57 by amansour          #+#    #+#             */
+/*   Updated: 2017/11/26 15:49:53 by amansour         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lem_in.h"
 
 static void	add_room(t_env *e, int x, int y, char *str)
@@ -14,9 +26,12 @@ static void	add_room(t_env *e, int x, int y, char *str)
 		tmp->next = NULL;
 		tmp->start = (RNBR == 1) ? 1 : 0;
 		tmp->end = (e->end) ? 0 : 1;
-		tmp->tube = NULL;
+		tmp->link = NULL;
 		if (!R)
+		{
 			R = tmp;
+			START = ft_strdup(str);
+		}
 		else
 		{
 			list = R;
@@ -34,10 +49,7 @@ int			length(char **str)
 
 	i = 0;
 	while (str[i])
-	{
-		printf("S = %s\n", str[i]);
 		++i;
-	}
 	return (i);
 }
 
@@ -62,7 +74,7 @@ static void treat_error(t_env *e, char **s)
 	ft_error(WRONGROOM);
 }
 
-void		fill_room(t_env *e, char *str)
+void		fill_room(t_env *e, char *str, int end)
 {
 	char	**s;
 	int		x;
@@ -86,6 +98,8 @@ void		fill_room(t_env *e, char *str)
 		printf("EROROR Y\n");
 		treat_error(e, s);
 	}
+	if (end)
+		END = ft_strdup(s[0]);
 	add_room(e, x, y, s[0]);
 	clean_split(s);
 }
