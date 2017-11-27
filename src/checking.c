@@ -6,7 +6,7 @@
 /*   By: amansour <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 12:15:43 by amansour          #+#    #+#             */
-/*   Updated: 2017/11/26 15:44:17 by amansour         ###   ########.fr       */
+/*   Updated: 2017/11/27 11:05:33 by amansour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,13 @@ int			check_end(t_env *e, char *line)
 		return (1);
 	}
 	RNBR += 1;
-	fill_room(e, line, 0);
+	(!belong(line, '-')) ? fill_room(e, line, 0) : 0;
+	if (belong(line, '-'))
+	{
+		delete_comment(&C);
+		delete_room(&R);
+		ft_error(NOEND);
+	}
 	return (0);
 }
 

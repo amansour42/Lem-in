@@ -6,7 +6,7 @@
 /*   By: amansour <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 12:09:40 by amansour          #+#    #+#             */
-/*   Updated: 2017/11/26 15:45:10 by amansour         ###   ########.fr       */
+/*   Updated: 2017/11/27 10:57:16 by amansour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,14 @@ int main(void)
 	check_start(&e);
 	while (get_next_line(0, &line)== 1 && !check_end(&e, line))
 		free(line);
-	/*if (!line)//delete_comment
-	{
-		delete_room(&(e.r));
-		ft_error(NOEND);
-	}
-	free(line);*/
 	while (get_next_line(0, &line) && !(belong(line, '-')))
 	{
 		check_map(&e, line);
 		free(line);
 	}
-	if (!line)//delete_comment
+	if (!line)
 	{
+		delete_comment(&(e.c));
 		delete_room(&(e.r));
 		ft_error(NOLINKS);
 	}

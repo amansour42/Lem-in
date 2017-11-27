@@ -6,7 +6,7 @@
 /*   By: amansour <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 14:55:04 by amansour          #+#    #+#             */
-/*   Updated: 2017/11/26 15:43:47 by amansour         ###   ########.fr       */
+/*   Updated: 2017/11/27 11:01:39 by amansour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@
 # define C				e->c
 # define END			e->end
 # define START			e->start
-# define ANTNBR			"Invalid ANTS' NUMBER!\n"
+# define ANTNBR			"ANTS' NUMBER ERROR!\n"
 # define INVALIDMAP		"INVALID MAP\n"
 # define NOSTART		"NO COMMAND START\n"
 # define NOEND			"NO COMMAND END\n"
 # define WRONGROOM		"WRONG ROMM'S FORMAT\n"
-# define INVALIDLINK	"INVALID TUBE\n"
+# define INVALIDLINK	"INVALID LINK\n"
 # define NOLINKS		"NOLINKS\n"
 
 typedef struct			s_comment
